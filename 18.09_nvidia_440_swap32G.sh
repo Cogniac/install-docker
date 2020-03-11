@@ -180,6 +180,11 @@ add_swap() {
         $sh_c "mkswap /swapfile"
         $sh_c "echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab"
         $sh_c "swapon /swapfile"
+        echo "Making kernel swap aggressively"
+        echo "vm.swappiness = 90" | $sh_c "tee -a /etc/sysctl.conf > /dev/null"
+        echo "vm.dirty_ratio = 10" | $sh_c "tee -a /etc/sysctl.conf > /dev/null"
+        echo "vm.dirty_background_ratio = 5" | $sh_c "tee -a /etc/sysctl.conf > /dev/null"
+        $sh_c "/sbin/sysctl -p /etc/sysctl.conf"
     fi
 }
 
