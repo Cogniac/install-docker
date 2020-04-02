@@ -7,7 +7,7 @@ CHANNEL="stable"
 # available.
 docker_version=18.09.7
 nvidia_runtime_version=${docker_version}-3
-nvidia_driver_version='440.33.01'
+nvidia_driver_version='440.64.00'
 nvidia_driver_installer="NVIDIA-Linux-x86_64-${nvidia_driver_version}.run"
 swap_size=32G
 
