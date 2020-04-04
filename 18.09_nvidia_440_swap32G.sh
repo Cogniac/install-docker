@@ -222,6 +222,17 @@ install_nvidia() {
     fi
 }
 
+update_limits() {
+    MEM=`free -m  | grep Mem | awk '{print $2}'`
+    LIMIT="17000"
+    if [ $MEM -lt $LIMIT ]; then
+        limit=100000
+        echo "Updating limits.conf"
+        $sh_c "sed -i '/\# End of file/i *   soft   nofile  ${limit}\n*   hard   nofile  ${limit}\n*   soft   nproc  ${limit}\n*   hard   nproc  ${limit}\n\n' /etc/security/limits.conf"
+        $sh_c "sed -i '/\# end of pam-auth-update config/i session required\tpam_limits.so\n' /etc/pam.d/common-session"
+    fi
+}
+
 do_install() {
 
 	architecture=$(uname -m)
@@ -453,6 +464,7 @@ do_install() {
 				$sh_c "apt-get install -y -q docker-ce-cli=$(apt-cache madison docker-ce-cli | grep ${docker_version} | head -n 1 | cut -d ' ' -f 3)"
 				$sh_c "apt-get install -y -q docker-ce=$(apt-cache madison docker-ce | grep ${docker_version} | head -n 1 | cut -d ' ' -f 4)"
 	            $sh_c "usermod -aG docker $user"
+                update_limits
                 install_nvidia
                 add_swap
 			)
