@@ -15,7 +15,7 @@ keyserver.ubuntu.com
 
 "
 
-nvidia_driver_version="470.182.03"
+nvidia_driver_version="535.129.03"
 nvidia_driver_installer="NVIDIA-Linux-x86_64-${nvidia_driver_version}.run"
 
 rhel_repos="
