@@ -467,7 +467,7 @@ do_install() {
 				set -x
 				$sh_c 'apt-get update'
 				$sh_c "apt-get install -y -q $pre_reqs"
-                $sh_c "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q"
+                                $sh_c "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q"
 				curl -fsSl "https://download.docker.com/linux/$lsb_dist/gpg" | $sh_c 'apt-key add -'
 				$sh_c "add-apt-repository \"$apt_repo\""
 				if [ "$lsb_dist" = "debian" ] && [ "$dist_version" = "wheezy" ]; then
@@ -478,19 +478,19 @@ do_install() {
 				$sh_c "apt-get install -y -q docker-ce=${pkg_version} docker-ce-cli=${pkg_version}"
 				$sh_c "usermod -aG docker $user"
 				update_limits
-                $sh_c 'KERNEL_VERSION=$(uname -r); apt-mark hold linux-image-$KERNEL_VERSION linux-headers-$KERNEL_VERSION linux-image-generic linux-headers-generic'
+                                $sh_c 'KERNEL_VERSION=$(uname -r); apt-mark hold linux-image-$KERNEL_VERSION linux-headers-$KERNEL_VERSION linux-image-generic linux-headers-generic'
 				install_nvidia
 				add_swap
-                $sh_c 'systemctl stop apt-daily-upgrade.service'
-                $sh_c 'systemctl stop apt-daily.service'
-                $sh_c 'systemctl stop apt-daily-upgrade.timer'
-                $sh_c 'systemctl stop apt-daily.timer'
-                $sh_c 'systemctl stop unattended-upgrades'
-                $sh_c 'systemctl stop snapd.service'
-                $sh_c 'systemctl stop snapd.socket'
-                $sh_c 'systemctl stop snapd.seeded.service'
-                $sh_c 'systemctl mask snapd.service'
-                $sh_c 'systemctl mask snapd.socket'
+                                $sh_c 'systemctl stop apt-daily-upgrade.service'
+                                $sh_c 'systemctl stop apt-daily.service'
+                                $sh_c 'systemctl stop apt-daily-upgrade.timer'
+                                $sh_c 'systemctl stop apt-daily.timer'
+                                $sh_c 'systemctl stop unattended-upgrades'
+                                $sh_c 'systemctl stop snapd.service'
+                                $sh_c 'systemctl stop snapd.socket'
+                                $sh_c 'systemctl stop snapd.seeded.service'
+                                $sh_c 'systemctl mask snapd.service'
+                                $sh_c 'systemctl mask snapd.socket'
 				$sh_c 'systemctl restart docker'
 			)
 			echo_docker_as_nonroot

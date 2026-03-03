@@ -390,7 +390,7 @@ do_install() {
 			(
 				set -x
 				$sh_c 'apt-get update'
-                $sh_c "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q"
+                                $sh_c "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -q"
 				$sh_c "apt-get install -y -q $pre_reqs"
 				curl -fsSl "https://download.docker.com/linux/$lsb_dist/gpg" | $sh_c 'apt-key add -'
 				$sh_c "add-apt-repository \"$apt_repo\""
